@@ -3,6 +3,7 @@
 
   const STORAGE_KEY = "xander.community.v2";
   const SESSION_KEY = "xander.community.session.v2";
+  const COLOR_MODE_KEY = "xander.community.color_mode.v1";
   const ANY_PROJECT = "__any_project__";
 
   const DEFAULT_SUPABASE_TABLES = {
@@ -59,6 +60,7 @@
   };
 
   const nodes = {
+    colorToggleBtn: document.getElementById("colorToggleBtn"),
     yearNow: document.getElementById("yearNow"),
     appContextName: document.getElementById("appContextName"),
     appLinkExample: document.getElementById("appLinkExample"),
@@ -111,6 +113,36 @@
   function parseUrlApp() {
     const raw = (new URLSearchParams(window.location.search).get("app") || "").trim();
     return raw || "General";
+  }
+
+  function loadColorModePreference() {
+    try {
+      return localStorage.getItem(COLOR_MODE_KEY) === "brown";
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function saveColorModePreference(enabled) {
+    try {
+      localStorage.setItem(COLOR_MODE_KEY, enabled ? "brown" : "mono");
+    } catch (error) {
+      // Ignore write failures (private mode, blocked storage, etc).
+    }
+  }
+
+  function syncColorToggleUi() {
+    if (!nodes.colorToggleBtn) {
+      return;
+    }
+    const enabled = document.body.classList.contains("color-mode");
+    nodes.colorToggleBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+    nodes.colorToggleBtn.title = enabled ? "Switch to black and white" : "Switch to brown mode";
+  }
+
+  function applyColorMode(enabled) {
+    document.body.classList.toggle("color-mode", Boolean(enabled));
+    syncColorToggleUi();
   }
 
   function dateTimeLabel(raw) {
@@ -1138,6 +1170,14 @@
   }
 
   function bindEvents() {
+    if (nodes.colorToggleBtn) {
+      nodes.colorToggleBtn.addEventListener("click", () => {
+        const next = !document.body.classList.contains("color-mode");
+        applyColorMode(next);
+        saveColorModePreference(next);
+      });
+    }
+
     nodes.sectionTabs.addEventListener("click", (event) => {
       const target = event.target;
       if (!(target instanceof HTMLButtonElement)) {
@@ -1435,6 +1475,7 @@
   }
 
   async function init() {
+    applyColorMode(loadColorModePreference());
     await initBackend();
     state.store = await loadStore();
     state.currentUser = loadSessionUser();
