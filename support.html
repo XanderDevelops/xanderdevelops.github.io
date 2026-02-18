@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xander Community Hub</title>
+  <link rel="icon" type="image/x-icon" href="assets/img/dev-icon.ico">
+  <meta name="description" content="Vintage-style community hub for support threads and blog posts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/support.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="masthead">
+      <div class="masthead-strip">
+        <a class="brand" href="index.html">Xander Community</a>
+        <a class="strip-link" href="index.html">Back to Portfolio</a>
+      </div>
+
+      <div class="masthead-body">
+        <div class="masthead-layout">
+          <div class="masthead-copy">
+            <h1>Support Center</h1>
+            <p class="subtitle">Support threads and blog posts for every project</p>
+            <p class="support-email">Support email: <a href="mailto:infoxanderdevelops@gmail.com">infoxanderdevelops@gmail.com</a></p>
+            <p class="context-line">Current app context: <strong id="appContextName">General</strong></p>
+            <p class="context-link">Store page link format: <code id="appLinkExample"></code></p>
+          </div>
+
+          <aside class="auth-box masthead-auth">
+            <h3>Account</h3>
+
+            <div id="authGuest" class="auth-guest">
+              <div class="auth-switch" role="tablist" aria-label="Authentication views">
+                <button id="showLoginBtn" type="button" class="chip active" role="tab" aria-selected="true">Login</button>
+                <button id="showRegisterBtn" type="button" class="chip" role="tab" aria-selected="false">Create Account</button>
+              </div>
+
+              <form id="loginForm" class="auth-form" autocomplete="off">
+                <label for="loginUsername">Username</label>
+                <input id="loginUsername" name="username" type="text" minlength="3" maxlength="24" required>
+
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="password" type="password" minlength="8" maxlength="72" required>
+
+                <button class="btn" type="submit">Login</button>
+              </form>
+
+              <form id="registerForm" class="auth-form hidden" autocomplete="off">
+                <label for="registerUsername">Username</label>
+                <input id="registerUsername" name="username" type="text" minlength="3" maxlength="24" required>
+
+                <label for="registerPassword">Password</label>
+                <input id="registerPassword" name="password" type="password" minlength="8" maxlength="72" required>
+
+                <button class="btn" type="submit">Create Account</button>
+              </form>
+            </div>
+
+            <div id="authLogged" class="auth-logged hidden">
+              <p id="sessionState">Logged in.</p>
+              <button id="logoutButton" class="btn alt" type="button">Logout</button>
+            </div>
+
+            <p class="small-note">Login is required before posting or commenting.</p>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <main class="board">
+      <nav id="sectionTabs" class="section-tabs" aria-label="Community sections">
+        <button type="button" class="section-tab active" data-panel="panel-help" aria-selected="true">How to get help</button>
+        <button type="button" class="section-tab" data-panel="panel-bugs" aria-selected="false">Bug Reports</button>
+        <button type="button" class="section-tab" data-panel="panel-faq" aria-selected="false">FAQ</button>
+        <button type="button" class="section-tab" data-panel="panel-posts" aria-selected="false">Posts</button>
+      </nav>
+
+      <section id="panel-help" class="panel section-panel active" aria-label="How to get help">
+        <h2>How to get help</h2>
+        <ol>
+          <li>Create your account or log in.</li>
+          <li>Open the <strong>Posts</strong> tab and choose the project.</li>
+          <li>Choose post type: <strong>Support Thread</strong> or <strong>Blog Post</strong>.</li>
+          <li>Write a clear title and detailed message.</li>
+          <li>Users can comment after they log in.</li>
+        </ol>
+      </section>
+
+      <section id="panel-bugs" class="panel section-panel" aria-label="Bug report instructions">
+        <h2>Bug report instructions</h2>
+        <ul>
+          <li>Add exact steps to reproduce.</li>
+          <li>Share expected result vs actual result.</li>
+          <li>Include browser/device/app version if possible.</li>
+          <li>Paste exact error messages if available.</li>
+          <li>Mark urgent issues with <strong>URGENT</strong> in the title.</li>
+        </ul>
+      </section>
+
+      <section id="panel-faq" class="panel section-panel" aria-label="Frequently asked questions">
+        <h2>FAQ</h2>
+        <details>
+          <summary>Do I need an account to post?</summary>
+          <p>Yes. Create an account or log in to publish posts and comments. You can still browse posts without logging in.</p>
+        </details>
+        <details>
+          <summary>Where should I report bugs?</summary>
+          <p>Create a <strong>Support Thread</strong>, pick the matching project, and include steps, expected result, and actual result.</p>
+        </details>
+        <details>
+          <summary>Can I open this page for one specific app?</summary>
+          <p>Yes. Use links like <code>support.html?app=MedFile</code> to open the board with that app preselected.</p>
+        </details>
+      </section>
+
+      <section id="panel-posts" class="panel section-panel" aria-label="Posts">
+        <div class="community-head">
+          <h2>Posts</h2>
+          <p>Filter support threads and blogs by project.</p>
+        </div>
+
+        <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
+
+        <article class="filters-box">
+          <h3>Navigate Posts</h3>
+          <div id="typeTabs" class="type-tabs" role="tablist" aria-label="Post type filters">
+            <button type="button" class="chip active" data-type="all" role="tab" aria-selected="true">All</button>
+            <button type="button" class="chip" data-type="support" role="tab" aria-selected="false">Support</button>
+            <button type="button" class="chip" data-type="blog" role="tab" aria-selected="false">Blogs</button>
+          </div>
+
+          <div class="filter-row">
+            <label class="sr-only" for="projectFilter">Filter by project</label>
+            <select id="projectFilter" aria-label="Filter by project"></select>
+
+            <label class="sr-only" for="searchInput">Search posts</label>
+            <input id="searchInput" type="text" maxlength="120" placeholder="Search title or content">
+
+            <button id="clearFilters" class="btn alt small" type="button">Clear</button>
+          </div>
+
+          <p id="resultCount" class="small-note"></p>
+        </article>
+
+        <section class="post-list-wrap">
+          <div id="threadListView">
+            <div id="postList" class="post-list"></div>
+          </div>
+
+          <div id="threadDetailView" class="hidden">
+            <div class="thread-toolbar">
+              <button id="backToListButton" class="btn alt small" type="button">Back To List</button>
+              <p id="threadPath" class="small-note"></p>
+            </div>
+            <div id="threadPostTabs" class="thread-tabs"></div>
+            <div id="threadPostDetail" class="thread-post-detail"></div>
+          </div>
+        </section>
+
+        <article class="composer-box composer-bottom" id="composerBox">
+          <h3 id="composerTitle">Create Post</h3>
+          <p id="composerGate" class="gate-note">Locked: log in to enable this form.</p>
+          <form id="postForm">
+            <fieldset id="postComposerFieldset" disabled>
+              <input id="postParentId" name="parentPostId" type="hidden" value="">
+
+              <label for="postType">Post Type</label>
+              <select id="postType" name="type" required>
+                <option value="support">Support Thread</option>
+                <option value="blog">Blog Post</option>
+              </select>
+
+              <label for="postProject">Project</label>
+              <select id="postProject" name="project" required></select>
+
+              <label for="postTitle">Title</label>
+              <input id="postTitle" name="title" type="text" minlength="5" maxlength="140" required>
+
+              <label for="postBody">Message</label>
+              <textarea id="postBody" name="body" minlength="10" maxlength="5000" required></textarea>
+
+              <button class="btn" type="submit">Publish Post</button>
+            </fieldset>
+          </form>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; <span id="yearNow"></span> Xander Develops Community</p>
+    </footer>
+  </div>
+
+  <script>
+    window.SUPPORT_SUPABASE = {
+      url: "https://hkjeiulvhpqvwurwlysl.supabase.co",
+      anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhramVpdWx2aHBxdnd1cndseXNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI1OTMsImV4cCI6MjA4NzAxODU5M30.amlpjPHCZqLZpBXoNuh93n1Jonsonu_jYZ5vQpLIb9Q",
+      tables: {
+        users: "community_users",
+        posts: "community_posts",
+        comments: "community_comments"
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/support.js" defer></script>
+</body>
+</html>

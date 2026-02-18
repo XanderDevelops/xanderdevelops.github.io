@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xander Develops | Rubber Hose Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/dev-icon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600&family=Bebas+Neue&family=Cormorant+Garamond:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
@@ -1043,8 +1044,27 @@
         }
 
         body.outer-bg-white {
-            background: #f7f7f7 !important;
-            background-image: none !important;
+            background-color: #f2efe4 !important;
+            background-image:
+                radial-gradient(circle at 14% 18%, rgba(0, 0, 0, 0.06) 0 1px, transparent 1.4px),
+                radial-gradient(circle at 78% 22%, rgba(0, 0, 0, 0.05) 0 0.9px, transparent 1.3px),
+                radial-gradient(circle at 28% 74%, rgba(0, 0, 0, 0.045) 0 1.1px, transparent 1.6px),
+                radial-gradient(circle at 90% 72%, rgba(0, 0, 0, 0.035) 0 0.9px, transparent 1.4px),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.012) 0px,
+                    rgba(0, 0, 0, 0.012) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0.009) 0px,
+                    rgba(0, 0, 0, 0.009) 1px,
+                    transparent 1px,
+                    transparent 5px
+                ) !important;
+            background-size: 260px 220px, 320px 280px, 300px 260px, 380px 300px, 8px 8px, 9px 9px !important;
         }
 
         body.outer-bg-black {
@@ -1746,6 +1766,61 @@
             }
         }
 
+        /* --- VINTAGE GRID OVERRIDES --- */
+        body {
+            font-family: 'Special Elite', cursive;
+        }
+
+        .tv-container,
+        .controls-panel,
+        .channel-btn,
+        .paper-sheet,
+        .rubber-card,
+        .btn-link,
+        .retro-btn,
+        .contract-header,
+        .download-badge {
+            border-radius: 0 !important;
+        }
+
+        .controls-panel {
+            gap: 0 !important;
+            padding: 0 !important;
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            border-top: 2px solid var(--ink-color);
+            border-bottom: 2px solid var(--ink-color);
+            background: #e8dfcb;
+        }
+
+        .channel-btn {
+            margin: 0 !important;
+            border: 0 !important;
+            border-right: 2px solid var(--ink-color) !important;
+            box-shadow: none !important;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 0.4rem !important;
+        }
+
+        .channel-btn:last-child {
+            border-right: 0 !important;
+        }
+
+        .paper-sheet,
+        .rubber-card {
+            box-shadow: none !important;
+            border-width: 2px !important;
+        }
+
+        @media (max-width: 1024px) {
+            .controls-panel {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
         @media (pointer: coarse), (hover: none) {
             .cursor-spotlight {
                 display: none !important;
@@ -1802,6 +1877,7 @@
             <button class="channel-btn" onclick="switchChannel('projects', this)">My Projects</button>
             <button class="channel-btn" onclick="switchChannel('work', this)">Client Work</button>
             <button class="channel-btn" onclick="switchChannel('hobbies', this)">Hobbies & Skills</button>
+            <button class="channel-btn" onclick="switchChannel('community', this)">Community</button>
             <button class="channel-btn" onclick="switchChannel('youtube', this)">Youtube</button>
         </div>
 
@@ -1841,7 +1917,7 @@
                             <p>📍 Dominican Republic</p>
                             <hr class="section-rule">
                             <p><strong>Addendum (Support):</strong></p>
-                            <p style="font-size:0.9rem">Buy me a coffee to contribute to my caffeine addiction.</p>
+                            <p style="font-size:0.9rem">Use the Community tab above for support threads and blog posts.</p>
                             <br>
                             <div style="text-align:center;">
                                 <a href="https://buymeacoffee.com/xanderdevelops" target="_blank" class="btn-link">☕ Buy Coffee</a>
@@ -1969,7 +2045,19 @@
                                 <h3>Perfectly Tuned</h3>
                                 <a href="https://play.google.com/store/apps/dev?id=7768288436890321787" target="_blank" class="btn-link">Store</a>
                             </div>
-                            
+
+                            <div class="rubber-card" onmouseenter="playJazzChord()">
+                                <img src="pair-drawing-app-icon.png" class="app-icon" alt="PairDrawing">
+                                <h3>PairDrawing</h3>
+                                <a href="https://apps.apple.com/us/app/pairdrawing/id6755837968" target="_blank" class="btn-link">App Store</a>
+                            </div>
+
+                            <div class="rubber-card" onmouseenter="playJazzChord()">
+                                <img src="https://niywynjtcteznkpmvmfe.supabase.co/storage/v1/object/public/Assets/sharp-logo-app.png" class="app-icon" alt="Sharp">
+                                <h3>Sharp</h3>
+                                <a href="#" onclick="return false;" class="btn-link">Coming Soon</a>
+                            </div>
+                             
                         </div>
                     </div>
                 </div>
@@ -2100,7 +2188,66 @@
                     </div>
                 </div>
 
-                <!-- === TAB 5: YOUTUBE === -->
+                <!-- === TAB 5: COMMUNITY === -->
+                <div id="community" class="channel-section" data-runner="selfless love | after hours | mientes | the scientist | back to the future | good fellas | the strokes | the police | the weekend | romeo santos |">
+                    <div class="category-title dance-text">Community Hub</div>
+                    <div class="contract-wrapper">
+                        <div class="paper-sheet contract-1">
+                            <div class="contract-header">
+                                <span>FORUM + BLOG</span>
+                            </div>
+                            <p>One place for all projects. Users can:</p>
+                            <ul style="padding-left: 1.1rem; margin: 0;">
+                                <li>Create support threads for specific apps.</li>
+                                <li>Publish blog posts and project updates.</li>
+                                <li>Comment with username + password accounts.</li>
+                                <li>Filter by project and content type quickly.</li>
+                            </ul>
+                        </div>
+                        <div class="paper-sheet contract-2">
+                            <div class="contract-header">
+                                <span>OPEN COMMUNITY</span>
+                            </div>
+                            <p><strong>Select Project</strong></p>
+                            <select id="communityProjectSelect" style="width:100%; border:3px solid var(--ink-color); border-radius:8px; padding:8px; font-family:inherit; margin-bottom:10px;">
+                                <option value="General">General</option>
+                                <option value="All Projects">All Projects</option>
+                                <option value="MedFile">MedFile</option>
+                                <option value="CSV Link">CSV Link</option>
+                                <option value="Creator Tools">Creator Tools</option>
+                                <option value="PairDrawing">PairDrawing</option>
+                                <option value="Sharp">Sharp</option>
+                                <option value="Untold Capers">Untold Capers</option>
+                                <option value="Scribbles">Scribbles</option>
+                                <option value="Itch.io">Itch.io</option>
+                                <option value="Photo Memory">Photo Memory</option>
+                                <option value="Brick Fever">Brick Fever</option>
+                                <option value="Grav-it">Grav-it</option>
+                                <option value="Twisted Bounce">Twisted Bounce</option>
+                                <option value="Gum Drop">Gum Drop</option>
+                                <option value="Square Jump">Square Jump</option>
+                                <option value="Perfectly Tuned">Perfectly Tuned</option>
+                            </select>
+                            <div style="text-align:center;">
+                                <button class="btn-link" onclick="openCommunityHubFromTab()">Open Community Hub</button>
+                            </div>
+                            <p style="font-size:0.8rem; margin-top:10px;">This opens <code>support.html?app=SelectedProject</code></p>
+                        </div>
+                        <div class="paper-sheet contract-3">
+                            <div class="contract-header">
+                                <span>NAVIGATION</span>
+                            </div>
+                            <p>Inside the hub:</p>
+                            <ul style="padding-left: 1.1rem; margin: 0;">
+                                <li>Use tabs for All, Support, or Blog posts.</li>
+                                <li>Use the project dropdown to narrow results.</li>
+                                <li>Use search to jump to known topics.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === TAB 6: YOUTUBE === -->
                 <div id="youtube" class="channel-section" data-runner="selfless love | after hours | mientes | the scientist | back to the future | good fellas | the strokes | the police | the weekend | romeo santos |">
                     <div class="category-title dance-text">Xander TV</div>
                     <div class="tv-screen-frame">
@@ -2204,6 +2351,13 @@
             const frame = document.getElementById('modalFrame');
             modal.style.display = 'none';
             frame.src = '';
+        }
+
+        function openCommunityHubFromTab() {
+            const projectSelect = document.getElementById('communityProjectSelect');
+            const project = projectSelect ? projectSelect.value : 'General';
+            const url = `support.html?app=${encodeURIComponent(project)}`;
+            window.location.href = url;
         }
 
         // --- AUDIO ENGINE ---
@@ -2401,3 +2555,4 @@
     </script>
 </body>
 </html>
+
