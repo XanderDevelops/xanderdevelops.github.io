@@ -4,8 +4,9 @@
   --ink-soft: #2b2b2b;
   --paper: #ffffff;
   --line: #000000;
-  --accent: #000000;
-  --accent-soft: #d9d9d9;
+  --accent: #d8ae43;
+  --accent-soft: #e8be52;
+  --accent-ink: #111111;
   --muted: #f2f2f2;
   --ok: #000000;
   --warn: #000000;
@@ -32,6 +33,7 @@ body.color-mode {
   --line: #2e271c;
   --accent: #9b3d28;
   --accent-soft: #b55234;
+  --accent-ink: #f8f2df;
   --muted: #eadfc9;
   --ok: #2e271c;
   --warn: #2e271c;
@@ -47,9 +49,35 @@ body.color-mode {
 }
 
 @font-face {
-  font-family: "mileast";
-  src: url("../../Mileast.otf") format("opentype");
+  font-family: "moranga-symbol";
+  src: local("Times New Roman"), local("Georgia"), local("Arial");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0026, U+0028-0029, U+002F, U+007C;
+}
+
+@font-face {
+  font-family: "moranga-symbol";
+  src: local("Times New Roman"), local("Georgia"), local("Arial");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0026, U+0028-0029, U+002F, U+007C;
+}
+
+@font-face {
+  font-family: "moranga";
+  src: url("../../fonnts.com-moranga-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "moranga";
+  src: url("../../fonnts.com-moranga-bold.otf") format("opentype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -67,7 +95,8 @@ body {
 
 body {
   color: var(--ink);
-  font-family: "Special Elite", serif;
+  font-family: "moranga-symbol", "moranga", serif;
+  font-weight: 400;
   background-color: var(--bg);
   background-image:
     radial-gradient(var(--grain-a) 0.7px, transparent 0.7px),
@@ -79,11 +108,15 @@ body {
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 .section-tab,
 .btn,
 .chip,
 .brand {
-  font-family: "mileast", serif;
+  font-family: "moranga-symbol", "moranga", serif;
+  font-weight: 700;
   letter-spacing: 0.02em;
 }
 
@@ -135,14 +168,14 @@ h3,
   border: 2px solid var(--paper);
   border-left: 2px solid var(--strip-divider);
   background: var(--accent-soft);
-  color: var(--line);
+  color: var(--accent-ink);
   cursor: pointer;
   display: grid;
   place-items: center;
 }
 
 .color-toggle:hover {
-  background: var(--panel);
+  background: var(--accent);
   transform: translateY(-1px);
 }
 
@@ -230,7 +263,7 @@ h3,
 
 .section-tab.active {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--accent-ink);
 }
 
 .panel {
@@ -325,8 +358,9 @@ h3,
 
 label {
   display: block;
-  margin: 0.44rem 0 0.12rem;
+  margin: 0.64rem 0 0.24rem;
   font-size: 0.9rem;
+  line-height: 1.25;
 }
 
 input,
@@ -341,9 +375,10 @@ textarea,
 select {
   width: 100%;
   border: 2px solid var(--line);
-  padding: 0.42rem;
+  padding: 0.62rem 0.78rem;
   background: var(--panel);
   color: var(--ink);
+  line-height: 1.4;
 }
 
 fieldset {
@@ -355,7 +390,7 @@ fieldset {
 
 textarea {
   resize: vertical;
-  min-height: 110px;
+  min-height: 136px;
 }
 
 .btn,
@@ -367,19 +402,19 @@ textarea {
 
 .btn {
   background: var(--accent);
-  color: var(--paper);
-  padding: 0.42rem 0.72rem;
+  color: var(--accent-ink);
+  padding: 0.56rem 0.9rem;
   margin-top: 0.62rem;
 }
 
 .btn.alt {
-  background: var(--panel);
+  background: var(--accent-soft);
   color: var(--ink);
 }
 
 .btn.small {
   margin-top: 0;
-  padding: 0.35rem 0.56rem;
+  padding: 0.48rem 0.74rem;
 }
 
 .chip {
@@ -395,7 +430,7 @@ textarea {
 
 .chip.active {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--accent-ink);
 }
 
 .small-note {
@@ -513,7 +548,7 @@ textarea {
 
 .thread-tab-button.active {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--accent-ink);
 }
 
 .thread-post-detail {
@@ -632,7 +667,7 @@ textarea {
 
 .comment-form textarea,
 .reply-form textarea {
-  min-height: 76px;
+  min-height: 96px;
 }
 
 .reply-form {

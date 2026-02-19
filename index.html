@@ -5,10 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xander Develops | Rubber Hose Portfolio</title>
     <link rel="icon" type="image/x-icon" href="assets/img/dev-icon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600&family=Bebas+Neue&family=Cormorant+Garamond:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: "moranga-symbol";
+            src: local("Times New Roman"), local("Georgia"), local("Arial");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+            unicode-range: U+0026, U+0028-0029, U+002F, U+007C;
+        }
+
+        @font-face {
+            font-family: "moranga-symbol";
+            src: local("Times New Roman"), local("Georgia"), local("Arial");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+            unicode-range: U+0026, U+0028-0029, U+002F, U+007C;
+        }
+
+        @font-face {
+            font-family: "moranga";
+            src: url("./fonnts.com-moranga-regular.otf") format("opentype");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "moranga";
+            src: url("./fonnts.com-moranga-bold.otf") format("opentype");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         /* --- THEME VARIABLES --- */
         :root {
             /* Default: Black & White */
@@ -37,7 +68,7 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--ink-color);
-            font-family: 'Gloria Hallelujah', cursive;
+            font-family: "moranga-symbol", "moranga", serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -82,14 +113,14 @@
 
         .jazz-hint {
             position: absolute; top: 10px; left: 20px;
-            font-family: 'Special Elite'; font-size: 0.8rem;
+            font-family: "moranga-symbol", "moranga", serif; font-size: 0.8rem;
             transform: rotate(-2deg); max-width: 200px;
             display: none;
         }
         @media(min-width: 768px) { .jazz-hint { display: block; } }
 
         h1.main-title {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 3.5rem;
             margin: 0;
             letter-spacing: 2px;
@@ -134,7 +165,7 @@
         }
 
         .channel-btn {
-            font-family: 'Special Elite', cursive;
+            font-family: "moranga-symbol", "moranga", serif;
             font-weight: bold;
             font-size: 0.9rem;
             background: white;
@@ -235,11 +266,11 @@
         body.color-mode .app-icon { filter: grayscale(0%); }
 
         .rubber-card h3 { margin: 0 0 5px 0; font-size: 1rem; text-align: center; }
-        .rubber-card p { font-family: 'Special Elite'; font-size: 0.75rem; margin-bottom: 8px; text-align: center; }
+        .rubber-card p { font-family: "moranga-symbol", "moranga", serif; font-size: 0.75rem; margin-bottom: 8px; text-align: center; }
 
         .download-badge {
             background: var(--ink-color); color: white;
-            font-family: 'Special Elite'; font-size: 0.6rem;
+            font-family: "moranga-symbol", "moranga", serif; font-size: 0.6rem;
             position: absolute; top: 10px; right: 10px; z-index: 20; /* Above Image */
             padding: 4px 8px; border-radius: 4px;
             border: 1px solid white;
@@ -250,7 +281,7 @@
         .btn-link {
             display: block; background: var(--ink-color); color: white;
             text-align: center; padding: 6px; text-decoration: none;
-            font-family: 'Special Elite'; border-radius: 6px; font-size: 0.8rem; cursor: pointer;
+            font-family: "moranga-symbol", "moranga", serif; border-radius: 6px; font-size: 0.8rem; cursor: pointer;
         }
         .btn-link:hover { background: #444; }
         body.color-mode .btn-link:hover { background: var(--accent-color); color: #f7f3ef; }
@@ -279,7 +310,7 @@
             padding-bottom: 10px;
         }
         .signature {
-            font-family: 'Special Elite'; font-size: 1.2rem; color: var(--ink-color);
+            font-family: "moranga-symbol", "moranga", serif; font-size: 1.2rem; color: var(--ink-color);
             margin-top: 20px; text-align: right; transform: rotate(-5deg);
         }
 
@@ -326,7 +357,7 @@
         
         .skill-blob {
             display: inline-block; background: #fff; border: 2px solid var(--ink-color);
-            padding: 8px 16px; margin: 5px; font-family: 'Special Elite';
+            padding: 8px 16px; margin: 5px; font-family: "moranga-symbol", "moranga", serif;
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; cursor: pointer;
             transition: all 0.2s;
         }
@@ -383,7 +414,7 @@
         .retro-btn {
             background: #888; border: 4px solid #222;
             border-radius: 50%; width: 60px; height: 60px;
-            font-family: 'Special Elite'; font-weight: bold; font-size: 0.8rem;
+            font-family: "moranga-symbol", "moranga", serif; font-weight: bold; font-size: 0.8rem;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 5px 0 #222; transition: all 0.1s;
         }
@@ -407,7 +438,7 @@
         }
         .close-modal {
             background: red; color: white; border: 2px solid black;
-            font-family: 'Special Elite'; padding: 5px 10px; cursor: pointer;
+            font-family: "moranga-symbol", "moranga", serif; padding: 5px 10px; cursor: pointer;
         }
 
         /* Animation Classes */
@@ -426,7 +457,7 @@
             --accent-color: #1c1c1c;
             --accent-soft: #d9d9d9;
             --muted-color: #3a3a3a;
-            --info-font: 'Baloo 2', 'Trebuchet MS', sans-serif;
+            --info-font: "moranga-symbol", "moranga", serif;
             --world-wash-a: rgba(0, 0, 0, 0.06);
             --world-wash-b: rgba(0, 0, 0, 0.05);
             --world-wash-c: rgba(0, 0, 0, 0.06);
@@ -449,7 +480,7 @@
             --accent-color: #9b3d28;
             --accent-soft: #b55234;
             --muted-color: #6a5a3f;
-            --info-font: 'Baloo 2', 'Trebuchet MS', sans-serif;
+            --info-font: "moranga-symbol", "moranga", serif;
             --world-wash-a: rgba(122, 95, 49, 0.11);
             --world-wash-b: rgba(59, 46, 24, 0.08);
             --world-wash-c: rgba(155, 61, 40, 0.11);
@@ -539,13 +570,13 @@
             transform: translateX(-50%);
             letter-spacing: 0.34em;
             text-transform: uppercase;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 0.78rem;
             color: var(--muted-color);
         }
 
         .jazz-hint {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             font-size: 0.78rem;
@@ -556,7 +587,7 @@
 
         h1.main-title {
             margin: 0.2rem 0 0.9rem;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: clamp(2.8rem, 8vw, 6.6rem);
             line-height: 0.9;
             letter-spacing: 0.09em;
@@ -626,7 +657,7 @@
         }
 
         .channel-btn {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: clamp(0.92rem, 2vw, 1.18rem);
             letter-spacing: 0.14em;
             border: 1px solid var(--line-color);
@@ -731,7 +762,7 @@
 
         .story-ribbon span {
             flex: 0 0 auto;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-style: italic;
             font-weight: 600;
             font-size: clamp(1rem, 2.4vw, 1.55rem);
@@ -759,7 +790,7 @@
             position: absolute;
             top: 0.1rem;
             left: 0;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-style: italic;
             font-weight: 700;
             font-size: clamp(2.3rem, 8vw, 6rem);
@@ -787,7 +818,7 @@
         }
 
         .category-title {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-style: italic;
             font-weight: 700;
             font-size: clamp(2.1rem, 5vw, 4.3rem);
@@ -824,14 +855,14 @@
         }
 
         .rubber-card h3 {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 1.35rem;
             letter-spacing: 0.03em;
             font-style: italic;
         }
 
         .rubber-card p {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 1rem;
             letter-spacing: 0.01em;
         }
@@ -841,14 +872,14 @@
             border: 1px solid #f6e7cf;
             box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
             background: var(--accent-color);
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 0.72rem;
             letter-spacing: 0.08em;
             padding: 5px 11px;
         }
 
         .btn-link {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 0.92rem;
             letter-spacing: 0.12em;
             padding: 0.5rem 0.7rem 0.4rem;
@@ -897,7 +928,7 @@
         }
 
         .contract-header span {
-            font-family: 'Bebas Neue', sans-serif !important;
+            font-family: "moranga-symbol", "moranga", serif !important;
             letter-spacing: 0.07em;
             font-size: 1.3rem !important;
         }
@@ -907,7 +938,7 @@
         }
 
         .social-list span {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 0.84rem;
             letter-spacing: 0.09em;
             text-transform: uppercase;
@@ -915,13 +946,13 @@
         }
 
         .social-list a {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 1rem;
             letter-spacing: 0.02em;
         }
 
         .signature {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 1.35rem;
             letter-spacing: 0.05em;
         }
@@ -955,7 +986,7 @@
         .skill-blob {
             border-width: 1px;
             border-radius: 999px;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             letter-spacing: 0.08em;
             padding: 0.46rem 1rem 0.38rem;
             background: rgba(255, 252, 244, 0.84);
@@ -996,7 +1027,7 @@
         .retro-btn {
             width: 64px;
             height: 64px;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 0.84rem;
             letter-spacing: 0.08em;
             background: var(--accent-soft);
@@ -1028,7 +1059,7 @@
         .close-modal {
             background: var(--accent-color);
             border: 1px solid var(--line-color);
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             letter-spacing: 0.08em;
         }
 
@@ -1083,7 +1114,7 @@
             border-radius: 0;
             background: var(--paper-color);
             color: var(--line-color);
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: 0.95rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
@@ -1136,7 +1167,7 @@
 
         h1.main-title {
             margin: 0;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-size: clamp(2.5rem, 7.5vw, 5.8rem);
             line-height: 0.86;
             letter-spacing: 0.08em;
@@ -1279,7 +1310,7 @@
         }
 
         .story-ribbon span {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-style: normal;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -1377,7 +1408,7 @@
         }
 
         .category-title {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             font-style: normal;
             font-size: clamp(2.1rem, 5vw, 4.2rem);
             letter-spacing: 0.05em;
@@ -1488,7 +1519,7 @@
         .piano-label {
             display: block;
             margin-bottom: 0.45rem;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: "moranga-symbol", "moranga", serif;
             letter-spacing: 0.07em;
             font-size: 1rem;
             text-transform: uppercase;
@@ -1768,7 +1799,7 @@
 
         /* --- VINTAGE GRID OVERRIDES --- */
         body {
-            font-family: 'Special Elite', cursive;
+            font-family: "moranga-symbol", "moranga", serif;
         }
 
         .tv-container,
@@ -1830,6 +1861,82 @@
             html.has-spotlight-cursor * {
                 cursor: auto !important;
             }
+        }
+
+        /* Moranga type hierarchy and title refinements */
+        body {
+            font-weight: 400;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .main-title,
+        .channel-btn,
+        .category-title,
+        .story-ribbon span,
+        .rubber-card h3,
+        .contract-header span {
+            font-weight: 700;
+            text-decoration: none !important;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0.45rem 0 0.75rem !important;
+        }
+
+        h1.main-title {
+            margin: 0 0 0.85rem !important;
+            letter-spacing: 0.022em !important;
+        }
+
+        .title-main {
+            letter-spacing: 0.018em !important;
+        }
+
+        .category-title {
+            font-size: clamp(1.65rem, 3.95vw, 3rem) !important;
+            border-bottom: 0 !important;
+            padding-bottom: 0 !important;
+            margin: 0.55rem 0 0.95rem 0.45rem !important;
+            text-decoration: none !important;
+        }
+
+        .story-ribbon span {
+            font-size: clamp(0.8rem, 1.68vw, 1.08rem) !important;
+        }
+
+        .rubber-card h3 {
+            margin: 0.4rem 0 0.65rem !important;
+            font-size: 0.98rem !important;
+        }
+
+        .contract-header span {
+            display: block;
+            margin: 0.3rem 0 0.5rem !important;
+            font-size: 0.98rem !important;
+        }
+
+        .channel-btn {
+            font-size: clamp(0.8rem, 1.62vw, 0.96rem) !important;
+        }
+
+        .main-title,
+        .title-main,
+        .jazz-hint,
+        .category-title,
+        .story-ribbon span,
+        .rubber-card h3,
+        .contract-header span {
+            text-decoration: none !important;
         }
     </style>
 </head>
@@ -2067,7 +2174,7 @@
                     <div class="client-layout">
                         <div class="client-left">
                             <div class="fiverr-card" onmouseenter="playJazzChord()">
-                                <h3 style="margin:0; font-family:'Bebas Neue', sans-serif; font-size:3rem; letter-spacing:2px;">FIVERR</h3>
+                                <h3 style="margin:0; font-family:'moranga-symbol', 'moranga', serif; font-size:3rem; letter-spacing:2px;">FIVERR</h3>
                                 <div style="font-size:1.5rem; color:black; margin: 10px 0;">★★★★★</div>
                                 <p style="font-size:0.9rem;"><strong>5.0</strong> (55 Reviews)</p>
                                 <a href="https://www.fiverr.com/alejandrojim439" target="_blank" class="btn-link" style="margin-top:10px;">Hire Me</a>
@@ -2555,4 +2662,6 @@
     </script>
 </body>
 </html>
+
+
 
