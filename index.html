@@ -454,8 +454,8 @@
             --card-bg: #fbfbfb;
             --paper-color: #ffffff;
             --line-color: #111111;
-            --accent-color: #1c1c1c;
-            --accent-soft: #d9d9d9;
+            --accent-color: #d8ae43;
+            --accent-soft: #e8be52;
             --muted-color: #3a3a3a;
             --info-font: "moranga-symbol", "moranga", serif;
             --world-wash-a: rgba(0, 0, 0, 0.06);
@@ -1937,6 +1937,34 @@
         .rubber-card h3,
         .contract-header span {
             text-decoration: none !important;
+        }
+
+        /* Yellow controls for default (black/white) theme */
+        body:not(.color-mode) .color-toggle,
+        body:not(.color-mode) .bg-toggle,
+        body:not(.color-mode) .btn-link,
+        body:not(.color-mode) .download-badge,
+        body:not(.color-mode) .retro-btn,
+        body:not(.color-mode) .close-modal,
+        body:not(.color-mode) .channel-btn {
+            background: var(--accent-soft) !important;
+            color: #111111 !important;
+            border-color: var(--line-color) !important;
+        }
+
+        body:not(.color-mode) .channel-btn.active,
+        body:not(.color-mode) .channel-btn:hover,
+        body:not(.color-mode) .btn-link:hover,
+        body:not(.color-mode) .color-toggle:hover,
+        body:not(.color-mode) .retro-btn:hover,
+        body:not(.color-mode) .bg-toggle:hover {
+            background: var(--accent-color) !important;
+            color: #111111 !important;
+        }
+
+        body:not(.color-mode) #newTabLink {
+            background: var(--accent-color) !important;
+            color: #111111 !important;
         }
     </style>
 </head>
