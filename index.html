@@ -12,7 +12,7 @@
             font-weight: 400;
             font-style: normal;
             font-display: swap;
-            unicode-range: U+0026, U+0028-0029, U+002F, U+007C;
+            unicode-range: U+0021, U+0026, U+0028-0029, U+002F, U+007C;
         }
 
         @font-face {
@@ -21,7 +21,7 @@
             font-weight: 700;
             font-style: normal;
             font-display: swap;
-            unicode-range: U+0026, U+0028-0029, U+002F, U+007C;
+            unicode-range: U+0021, U+0026, U+0028-0029, U+002F, U+007C;
         }
 
         @font-face {
@@ -1945,15 +1945,24 @@
         body:not(.color-mode) .btn-link,
         body:not(.color-mode) .download-badge,
         body:not(.color-mode) .retro-btn,
-        body:not(.color-mode) .close-modal,
-        body:not(.color-mode) .channel-btn {
+        body:not(.color-mode) .close-modal {
             background: var(--accent-soft) !important;
             color: #111111 !important;
             border-color: var(--line-color) !important;
         }
 
+        body:not(.color-mode) .channel-btn {
+            background: var(--paper-color) !important;
+            color: var(--line-color) !important;
+            border-color: var(--line-color) !important;
+        }
+
+        body:not(.color-mode) .channel-btn:hover {
+            background: var(--paper-color) !important;
+            color: var(--line-color) !important;
+        }
+
         body:not(.color-mode) .channel-btn.active,
-        body:not(.color-mode) .channel-btn:hover,
         body:not(.color-mode) .btn-link:hover,
         body:not(.color-mode) .color-toggle:hover,
         body:not(.color-mode) .retro-btn:hover,
