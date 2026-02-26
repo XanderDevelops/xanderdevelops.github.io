@@ -581,6 +581,15 @@
     syncComposerUi();
   }
 
+  function postMatchesSearch(post, queryText = state.searchText) {
+    const query = String(queryText || "").trim().toLowerCase();
+    if (!query) {
+      return true;
+    }
+    const haystack = `${post.title} ${post.body} ${post.project} ${post.author}`.toLowerCase();
+    return haystack.includes(query);
+  }
+
   function matchesFilters(post) {
     if (post.parentPostId) {
       return false;
@@ -592,13 +601,8 @@
     if (state.projectFilter !== ANY_PROJECT && post.project !== state.projectFilter) {
       return false;
     }
-    if (!state.searchText) {
-      return true;
-    }
 
-    const search = state.searchText.toLowerCase();
-    const haystack = `${post.title} ${post.body} ${post.project} ${post.author}`.toLowerCase();
-    return haystack.includes(search);
+    return postMatchesSearch(post, state.searchText);
   }
 
   function sortedFilteredPosts() {
@@ -672,16 +676,82 @@
     }).length;
   }
 
+  function buildPreviewText(body, queryText, maxLength = 320) {
+    const source = String(body || "");
+    const query = String(queryText || "").trim().toLowerCase();
+    if (!query || source.length <= maxLength) {
+      return source.length > maxLength ? `${source.slice(0, maxLength)}...` : source;
+    }
+
+    const index = source.toLowerCase().indexOf(query);
+    if (index < 0) {
+      return source.length > maxLength ? `${source.slice(0, maxLength)}...` : source;
+    }
+
+    const halfWindow = Math.floor(maxLength / 2);
+    let start = Math.max(0, index - halfWindow);
+    let end = Math.min(source.length, start + maxLength);
+    if (end - start < maxLength) {
+      start = Math.max(0, end - maxLength);
+    }
+
+    let preview = source.slice(start, end);
+    if (start > 0) {
+      preview = `...${preview}`;
+    }
+    if (end < source.length) {
+      preview = `${preview}...`;
+    }
+    return preview;
+  }
+
+  function appendHighlightedText(node, text, queryText) {
+    const source = String(text || "");
+    const query = String(queryText || "").trim();
+    node.textContent = "";
+
+    if (!query) {
+      node.textContent = source;
+      return;
+    }
+
+    const sourceLower = source.toLowerCase();
+    const queryLower = query.toLowerCase();
+    let cursor = 0;
+
+    while (cursor < source.length) {
+      const matchAt = sourceLower.indexOf(queryLower, cursor);
+      if (matchAt < 0) {
+        node.appendChild(document.createTextNode(source.slice(cursor)));
+        break;
+      }
+
+      if (matchAt > cursor) {
+        node.appendChild(document.createTextNode(source.slice(cursor, matchAt)));
+      }
+
+      const mark = document.createElement("mark");
+      mark.className = "search-mark";
+      mark.textContent = source.slice(matchAt, matchAt + query.length);
+      node.appendChild(mark);
+
+      cursor = matchAt + query.length;
+    }
+  }
+
   function createListPostElement(post) {
     const card = document.createElement("article");
     card.className = `post-card${post.pinned ? " pinned" : ""}`;
+    if (state.searchText && postMatchesSearch(post, state.searchText)) {
+      card.classList.add("search-hit");
+    }
 
     const titleRow = document.createElement("div");
     titleRow.className = "post-title-row";
 
     const title = document.createElement("h4");
     title.className = "post-title";
-    title.textContent = post.title;
+    appendHighlightedText(title, post.title, state.searchText);
 
     const badges = document.createElement("div");
     badges.className = "badges";
@@ -703,7 +773,7 @@
 
     const body = document.createElement("div");
     body.className = "post-body";
-    body.textContent = post.body.length > 320 ? `${post.body.slice(0, 320)}...` : post.body;
+    appendHighlightedText(body, buildPreviewText(post.body, state.searchText, 320), state.searchText);
 
     const actions = document.createElement("div");
     actions.className = "comment-actions";
@@ -787,13 +857,16 @@
   function createThreadPostDetail(post, root) {
     const wrap = document.createElement("article");
     wrap.className = `post-card${post.pinned ? " pinned" : ""}`;
+    if (state.searchText && postMatchesSearch(post, state.searchText)) {
+      wrap.classList.add("search-hit");
+    }
 
     const titleRow = document.createElement("div");
     titleRow.className = "post-title-row";
 
     const title = document.createElement("h4");
     title.className = "post-title";
-    title.textContent = post.title;
+    appendHighlightedText(title, post.title, state.searchText);
 
     const badges = document.createElement("div");
     badges.className = "badges";
@@ -815,7 +888,7 @@
 
     const body = document.createElement("div");
     body.className = "post-body";
-    body.textContent = post.body;
+    appendHighlightedText(body, post.body, state.searchText);
 
     wrap.appendChild(titleRow);
     wrap.appendChild(meta);
@@ -884,7 +957,7 @@
       posts.forEach((post) => nodes.postList.appendChild(createListPostElement(post)));
     }
 
-    nodes.resultCount.textContent = `${posts.length} post(s) visible.`;
+    nodes.resultCount.textContent = `${posts.length} thread(s) visible.`;
   }
 
   function renderThreadView() {
@@ -907,16 +980,25 @@
     nodes.threadPath.textContent = `Thread: ${root.title} (${threadPosts.length - 1} subthread(s))`;
 
     nodes.threadPostTabs.innerHTML = "";
-    threadPosts.forEach((post) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = `thread-tab-button${post.id === activePost.id ? " active" : ""}`;
-      button.dataset.action = "select-thread-post";
-      button.dataset.postId = post.id;
-      const prefix = post.id === root.id ? "Main" : "Subthread";
-      button.textContent = `${prefix}: ${post.title}`;
-      nodes.threadPostTabs.appendChild(button);
-    });
+    const hasSubthreads = threadPosts.length > 1;
+    nodes.threadPostTabs.classList.toggle("hidden", !hasSubthreads);
+
+    if (hasSubthreads) {
+      threadPosts.forEach((post) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `thread-tab-button${post.id === activePost.id ? " active" : ""}`;
+        button.classList.add(post.id === root.id ? "is-root" : "is-subthread");
+        if (state.searchText && postMatchesSearch(post, state.searchText)) {
+          button.classList.add("search-hit");
+        }
+        button.dataset.action = "select-thread-post";
+        button.dataset.postId = post.id;
+        const prefix = post.id === root.id ? "OP" : "Reply";
+        button.textContent = `${prefix}: ${post.title}`;
+        nodes.threadPostTabs.appendChild(button);
+      });
+    }
 
     nodes.threadPostDetail.innerHTML = "";
     nodes.threadPostDetail.appendChild(createThreadPostDetail(activePost, root));
