@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   "use strict";
 
   const STORAGE_KEY = "xander.community.v2";
@@ -154,14 +154,101 @@
     return String(input || "").trim();
   }
 
+  function sha256(ascii) {
+    function rightRotate(value, amount) {
+      return (value >>> amount) | (value << (32 - amount));
+    }
+
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var lengthProperty = 'length';
+    var i, j;
+    var result = '';
+
+    var words = [];
+    var asciiLength = ascii[lengthProperty];
+    
+    var hash = sha256.h = sha256.h || [];
+    var k = sha256.k = sha256.k || [];
+    var primeCounter = k[lengthProperty];
+
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = 0; i < 313; i += candidate) {
+          isComposite[i] = 1;
+        }
+        hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+
+    var currentHash = [...hash];
+
+    ascii += '\x80';
+    while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+    for (i = 0; i < ascii[lengthProperty]; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return; // ASCII only
+      words[i >> 2] |= j << (24 - (i % 4) * 8);
+    }
+    words[words[lengthProperty]] = ((asciiLength * 8) / maxWord) | 0;
+    words[words[lengthProperty]] = (asciiLength * 8) & 0xffffffff;
+
+    // Process each 64-byte (16-word) block
+    for (var chunkStart = 0; chunkStart < words.length; chunkStart += 16) {
+      var w = new Array(64);
+      for (i = 0; i < 16; i++) {
+        w[i] = words[chunkStart + i] || 0;
+      }
+      for (i = 16; i < 64; i++) {
+        var s0 = rightRotate(w[i - 15], 7) ^ rightRotate(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+        var s1 = rightRotate(w[i - 2], 17) ^ rightRotate(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+      }
+
+      var a = currentHash[0], b = currentHash[1], c = currentHash[2], d = currentHash[3],
+          e = currentHash[4], f = currentHash[5], g = currentHash[6], h = currentHash[7];
+
+      for (i = 0; i < 64; i++) {
+        var S1 = rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25);
+        var ch = (e & f) ^ ((~e) & g);
+        var temp1 = (h + S1 + ch + k[i] + w[i]) | 0;
+        var S0 = rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22);
+        var maj = (a & b) ^ (a & c) ^ (b & c);
+        var temp2 = (S0 + maj) | 0;
+
+        h = g;
+        g = f;
+        f = e;
+        e = (d + temp1) | 0;
+        d = c;
+        c = b;
+        b = a;
+        a = (temp1 + temp2) | 0;
+      }
+
+      currentHash[0] = (currentHash[0] + a) | 0;
+      currentHash[1] = (currentHash[1] + b) | 0;
+      currentHash[2] = (currentHash[2] + c) | 0;
+      currentHash[3] = (currentHash[3] + d) | 0;
+      currentHash[4] = (currentHash[4] + e) | 0;
+      currentHash[5] = (currentHash[5] + f) | 0;
+      currentHash[6] = (currentHash[6] + g) | 0;
+      currentHash[7] = (currentHash[7] + h) | 0;
+    }
+
+    for (i = 0; i < 8; i++) {
+      var val = currentHash[i] >>> 0;
+      result += (val.toString(16)).padStart(8, '0');
+    }
+
+    return result;
+  }
+
   async function hashPassword(username, password) {
     const seed = `${String(username || "").toLowerCase()}::${String(password || "")}`;
-    if (window.crypto && window.crypto.subtle && window.TextEncoder) {
-      const bytes = new TextEncoder().encode(seed);
-      const digest = await window.crypto.subtle.digest("SHA-256", bytes);
-      return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
-    }
-    return btoa(unescape(encodeURIComponent(seed)));
+    return sha256(seed);
   }
 
   function makeId(prefix) {
@@ -320,7 +407,11 @@
   }
 
   function saveLocalStore() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.store));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.store));
+    } catch {
+      // Ignore write failures in private tabs or restricted iframe contexts.
+    }
   }
 
   async function ensureSeedPostsInSupabase(posts) {
@@ -426,15 +517,27 @@
   }
 
   function loadSessionUser() {
-    return localStorage.getItem(SESSION_KEY);
+    try {
+      return localStorage.getItem(SESSION_KEY);
+    } catch {
+      return null;
+    }
   }
 
   function saveSessionUser(username) {
-    localStorage.setItem(SESSION_KEY, username);
+    try {
+      localStorage.setItem(SESSION_KEY, username);
+    } catch {
+      // Ignore
+    }
   }
 
   function clearSessionUser() {
-    localStorage.removeItem(SESSION_KEY);
+    try {
+      localStorage.removeItem(SESSION_KEY);
+    } catch {
+      // Ignore
+    }
   }
 
   function addProjectIfMissing(projectName) {

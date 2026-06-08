@@ -340,6 +340,10 @@ h6,
   padding: 0.5rem 0.7rem;
 }
 
+#statusMessage {
+  margin: 0.6rem 0.6rem 0.2rem 0.6rem;
+}
+
 .status.show {
   display: block;
 }
@@ -519,8 +523,7 @@ summary:focus-visible {
   gap: var(--post-space-md);
 }
 
-#panel-posts.active > .community-head,
-#panel-posts.active > #statusMessage {
+#panel-posts.active > .community-head {
   grid-column: 1 / -1;
 }
 
@@ -936,7 +939,6 @@ summary:focus-visible {
   }
 
   #panel-posts.active > .community-head,
-  #panel-posts.active > #statusMessage,
   #panel-posts.active > .filters-box,
   #panel-posts.active > .post-list-wrap,
   #panel-posts.active > .composer-bottom {
