@@ -1,0 +1,82 @@
+@font-face {
+  font-family: Moranga;
+  src: url("../fonnts.com-moranga-bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --ink: #242820;
+  --muted: #4b5147;
+  --green: #355a3e;
+  --line: #d2d3c4;
+  --page: #fffcf5;
+  --display: Moranga, Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  max-width: 76rem;
+  padding: 0 clamp(1.15rem, 5vw, 4.5rem);
+  color: var(--ink);
+  background: var(--page);
+  font: 1.06rem/1.68 system-ui, sans-serif;
+}
+a { color: var(--green); text-underline-offset: .2em; }
+a:hover { text-decoration-thickness: .13em; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
+.skip { position: absolute; top: .5rem; left: .5rem; padding: .5rem; background: white; transform: translateY(-175%); }
+.skip:focus { transform: none; }
+.masthead, footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.15rem 0; }
+.masthead { border-bottom: 2px solid var(--ink); }
+.wordmark { color: var(--ink); font: 700 1.5rem/1.15 var(--display); text-decoration: none; }
+.contact-link, footer > a:last-child { font-size: .93rem; font-weight: 650; }
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2.5rem;
+  border-bottom: 2px solid var(--ink);
+  padding: clamp(2.4rem, 6vw, 4.8rem) 0;
+}
+.date { margin: 0 0 1rem; font: 600 .79rem/1.5 ui-monospace, monospace; color: var(--green); }
+h1, h2 { font-family: var(--display); text-wrap: balance; }
+h1 { margin: 0; font-size: clamp(3rem, 6.85vw, 5.8rem); letter-spacing: -.045em; line-height: 1.06; }
+.intro { max-width: 36rem; margin: 1rem 0 0; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.3rem); }
+.studio-art { display: block; width: clamp(7rem, 14vw, 11rem); height: auto; }
+.reading-layout { display: grid; grid-template-columns: minmax(12rem, 16rem) minmax(0, 41rem); gap: clamp(2.4rem, 6vw, 6rem); padding: 2.8rem 0 3.5rem; }
+.contents { align-self: start; }
+.contents h2 { margin: 0 0 .75rem; font-size: 1.3rem; }
+.contents ul { padding: 0 0 0 1rem; margin: 0; border-left: 2px solid var(--line); list-style: none; }
+.contents a { display: inline-block; padding: .32rem 0; font-size: .95rem; text-decoration: none; line-height: 1.45; }
+.contents a:hover, .wordmark:hover { text-decoration: underline; }
+section { scroll-margin-top: 1.4rem; }
+section + section { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+section h2 { margin: 0 0 .7rem; font-size: clamp(1.65rem, 3vw, 2.1rem); letter-spacing: -.025em; line-height: 1.15; }
+section p { margin: 0 0 .8rem; }
+section p:last-child { margin-bottom: 0; }
+section a { overflow-wrap: anywhere; }
+footer { border-top: 2px solid var(--ink); padding: 1.4rem 0 2rem; }
+@media (min-width: 761px) and (min-height: 600px) { .contents { position: sticky; top: 1.5rem; } }
+@media (max-width: 760px) {
+  .reading-layout { display: block; padding-top: 1.5rem; }
+  .contents { padding-bottom: 1.4rem; margin-bottom: 2rem; border-bottom: 1px solid var(--line); }
+  .contents ul { columns: 2; column-gap: 1.5rem; }
+  .contents li { break-inside: avoid; }
+  .contents a { padding: .45rem 0; }
+  .hero { gap: .7rem; }
+}
+@media (max-width: 520px) {
+  .studio-art { display: none; }
+  .hero { display: block; }
+}
+@media print {
+  body { max-width: none; padding: 0; background: white; font-size: 11pt; }
+  .contents, .skip, .contact-link, footer, .studio-art { display: none; }
+  .hero, .reading-layout { display: block; padding: 1rem 0; }
+  h1 { font-size: 32pt; }
+  h2 { break-after: avoid; }
+  section + section { margin-top: 1rem; padding-top: .6rem; }
+}
